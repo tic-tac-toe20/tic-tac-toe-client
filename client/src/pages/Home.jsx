@@ -75,6 +75,8 @@ export default function Home(){
 
     }
 
+
+
     useEffect(()=>{
         socket.auth = {
             username: localStorage.username
@@ -91,6 +93,7 @@ export default function Home(){
                 userLogin[0]
             )
         })
+        
 
         socket.on('playing', (e)=>{ // <<< 5 diterima cick barunya
             setClick(e) // <<< 6 di set
@@ -110,6 +113,8 @@ export default function Home(){
         })
     },[])
 
+    console.log(players,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
     useEffect(()=>{
         console.log(user,'<-data user');
     },[user])
@@ -125,12 +130,12 @@ export default function Home(){
         {
             audio && <audio autoPlay><source src="bell.wav" type="audio/mpeg"/></audio>
         }
-        <button onClick={handlerLogOut}>log out</button>
+        <button className="logOut" onClick={handlerLogOut}>logOut</button>
             <div className="main-div">
         <div>
         <div className="move-detection">
-            <div className="left">Kamu</div>
-            <div className="right">Lawan</div>
+            <div className="left">{localStorage.username}</div>
+            <div className="right">jodoh 💕</div>
           </div>
           <div>
             <h1 className="tittle-head transparant-div" >Tic X Tac O Toe</h1>
@@ -144,6 +149,7 @@ export default function Home(){
             </div>
         </div>
         </div>
+          
         
       </div>
         </>
