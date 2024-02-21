@@ -94,17 +94,20 @@ export default function Home() {
     });
   }
 
-  function handlerClick(key) {
-    if (username === localStorage.username) {
-      handlerAudio();
-      socket.emit('playing', { ...click, [key]: user.symbol }); // <<< 2 ngirim
-      let userLogin = players.filter((el) => el.user !== localStorage.username);
-      socket.emit('username', userLogin[0].user);
-    } else {
-      handlerAudio();
-      console.log('bukan giliranmu!!!');
+    function handlerClick(key){
+        if(username===localStorage.username) {
+            handlerAudio()
+            socket.emit('playing',{...click,[key]:user.symbol}) // <<< 2 ngirim
+            let userLogin = players.filter(el=>el.user!==localStorage.username)
+            socket.emit('username', userLogin[0].user)
+        } else {
+            handlerAudio()
+            console.log('bukan giliranmu!!!');
+        }
+
     }
-  }
+
+
 
   useEffect(() => {
     socket.auth = {
@@ -174,6 +177,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+          
         
       </div>
     </>
