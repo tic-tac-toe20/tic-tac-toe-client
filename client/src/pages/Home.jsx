@@ -94,17 +94,20 @@ export default function Home() {
     });
   }
 
-  function handlerClick(key) {
-    if (username === localStorage.username) {
-      handlerAudio();
-      socket.emit('playing', { ...click, [key]: user.symbol }); // <<< 2 ngirim
-      let userLogin = players.filter((el) => el.user !== localStorage.username);
-      socket.emit('username', userLogin[0].user);
-    } else {
-      handlerAudio();
-      console.log('bukan giliranmu!!!');
+    function handlerClick(key){
+        if(username===localStorage.username) {
+            handlerAudio()
+            socket.emit('playing',{...click,[key]:user.symbol}) // <<< 2 ngirim
+            let userLogin = players.filter(el=>el.user!==localStorage.username)
+            socket.emit('username', userLogin[0].user)
+        } else {
+            handlerAudio()
+            console.log('bukan giliranmu!!!');
+        }
+
     }
-  }
+
+
 
   useEffect(() => {
     socket.auth = {
@@ -159,9 +162,9 @@ export default function Home() {
       <button onClick={handlerLogOut}>log out</button>
       <div className="main-div">
         <div>
-          <div className="move-detection">
-            <div className="left">Kamu</div>
-            <div className="right">Lawan</div>
+        <div className="move-detection">
+            <div className="left">{localStorage.username}</div>
+            <div className="right">jodoh 💕</div>
           </div>
           <div>
             <h1 className="tittle-head transparant-div">Tic X Tac O Toe</h1>
@@ -174,6 +177,8 @@ export default function Home() {
             </div>
           </div>
         </div>
+          
+        
       </div>
     </>
   );
