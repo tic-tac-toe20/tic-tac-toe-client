@@ -43,6 +43,12 @@ export default function Home(){
                   }, 100)
             }
         })
+    } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
+        console.log('permainan draw!!!');
+        setTimeout(()=>{
+            localStorage.clear()
+            navigate('/login')
+        },900)
     }
 
     
