@@ -156,9 +156,9 @@ export default function Home() {
       <button onClick={handlerLogOut}>log out</button>
       <div className="main-div">
         <div>
-          <div className="move-detection">
-            <div className="left">Kamu</div>
-            <div className="right">Lawan</div>
+        <div className="move-detection">
+            <div className="left">{localStorage.username}</div>
+            <div className="right">jodoh 💕</div>
           </div>
           <div>
             <h1 className="tittle-head transparant-div">Tic X Tac O Toe</h1>
@@ -171,6 +171,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        
       </div>
     </>
   );
