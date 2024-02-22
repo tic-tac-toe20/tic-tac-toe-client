@@ -11,7 +11,6 @@ const renderForm = [
 ];
 
 export default function Home() {
-  // let arr = ['a','b','c','d','e','f','g','h','i']
   const navigate = useNavigate();
   const [username, setUsername] = useState(localStorage.username);
   const [audio, setAudio] = useState(false); // unt audio
@@ -29,9 +28,7 @@ export default function Home() {
     h: 'h',
     i: 'i',
   });
-
-  // let b1,b2,b3,b4,b5,b6,b7,b8,b9;
-
+  
   if (
     (click.a == click.b && click.b == click.c) ||
     (click.d == click.e && click.e == click.f) ||
@@ -65,7 +62,13 @@ export default function Home() {
             }, 1000);
       }
     });
-  }
+  } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
+        console.log('permainan draw!!!');
+        setTimeout(()=>{
+            localStorage.clear()
+            navigate('/login')
+        },900)
+    }
 
   function handlerLogOut() {
     localStorage.removeItem('username');
@@ -94,19 +97,17 @@ export default function Home() {
     });
   }
 
-    function handlerClick(key){
-        if(username===localStorage.username) {
-            handlerAudio()
-            socket.emit('playing',{...click,[key]:user.symbol}) // <<< 2 ngirim
-            let userLogin = players.filter(el=>el.user!==localStorage.username)
-            socket.emit('username', userLogin[0].user)
-        } else {
-            handlerAudio()
-            console.log('bukan giliranmu!!!');
-        }
-
+  function handlerClick(key) {
+    if (username === localStorage.username) {
+      handlerAudio();
+      socket.emit('playing', { ...click, [key]: user.symbol }); // <<< 2 ngirim
+      let userLogin = players.filter((el) => el.user !== localStorage.username);
+      socket.emit('username', userLogin[0].user);
+    } else {
+      handlerAudio();
+      console.log('bukan giliranmu!!!');
     }
-
+  }
 
 
   useEffect(() => {
