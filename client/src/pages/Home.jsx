@@ -54,11 +54,10 @@ export default function Home() {
             console.log(localStorage.username, '<-username', e,'<-yg menang');
             Swal.fire("you lose!")
         } 
-          
-        // setTimeout(()=>{
-        //     localStorage.clear()
-        //     navigate('/login')
-        // },900)
+        setTimeout(()=>{
+            localStorage.clear()
+            navigate('/login')
+        },900)
       }
     });
   } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
