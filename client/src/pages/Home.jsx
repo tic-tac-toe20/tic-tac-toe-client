@@ -42,24 +42,25 @@ export default function Home() {
     (click.a == click.e && click.e == click.i) ||
     (click.c == click.e && click.e == click.g)
   ) {
+    console.log('game over jln', localStorage.username);
     socket.emit('gameOver', localStorage.username);
 
-    socket.on('gameOver', (e) => {
-      if (e) {
-        console.log(e, '<--- ini harusnya user yg won');
-        if(localStorage.username === e){
-            console.log(localStorage.username, '<-username', e,'<-yg menang');
-            Swal.fire("You win!")
-        } else if (localStorage.username !== e) {
-            console.log(localStorage.username, '<-username', e,'<-yg menang');
-            Swal.fire("you lose!")
-        } 
-        setTimeout(()=>{
-            localStorage.clear()
-            navigate('/login')
-        },900)
-      }
-    });
+    // socket.on('gameOver', (e) => {
+    //    console.log(e, '<--- ini harusnya user yg won');
+    //     console.log(localStorage.username,'<- ini di kondisi game over', e,'-< yg menang');
+
+    //     if(localStorage.username === e){
+    //         console.log(localStorage.username, '<-username', e,'<-yg menang');
+    //         Swal.fire("You win!")
+    //     } else if (localStorage.username !== e) {
+    //         console.log(localStorage.username, '<-username', e,'<-yg menang');
+    //         Swal.fire("you lose!")
+    //     } 
+    //     // setTimeout(()=>{
+    //     //     localStorage.clear()
+    //     //     navigate('/login')
+    //     // },900)
+    // });
   } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
         console.log('permainan draw!!!');
         Swal.fire("draw!!!");
@@ -138,10 +139,29 @@ export default function Home() {
       setUsername(e);
     });
 
+    socket.on('gameOver', (e) => {
+           console.log(e, '<--- ini harusnya user yg won');
+            console.log(localStorage.username,'<- ini di kondisi game over', e,'-< yg menang');
+    
+            if(localStorage.username === e){
+                console.log(localStorage.username, '<-username', e,'<-yg menang');
+                Swal.fire("You win!")
+            } else if (localStorage.username !== e) {
+                console.log(localStorage.username, '<-username', e,'<-yg menang');
+                Swal.fire("you lose!")
+            } 
+            // setTimeout(()=>{
+            //     localStorage.clear()
+            //     navigate('/login')
+            // },900)
+        });
+
     return () => {
       socket.off('players:online');
       socket.off('find');
       socket.off('playing');
+      socket.off('gameOver')
+      socket.off('username')
 
       socket.disconnect();
     };
