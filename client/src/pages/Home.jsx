@@ -103,13 +103,23 @@ export default function Home() {
     }
   }
 
+<<<<<<< HEAD
   useEffect(() => {
     socket.auth = {
       username: localStorage.username,
     };
+=======
+
+
+    useEffect(()=>{
+        socket.auth = {
+            username: localStorage.username
+        }
+>>>>>>> d5c11b3 (feat: ngedit home)
 
     socket.connect();
 
+<<<<<<< HEAD
     socket.on('find', (player) => {
       console.log(player, '<=data players');
       setPlayers(player);
@@ -117,6 +127,18 @@ export default function Home() {
       let userLogin = player.filter((el) => el.user === localStorage.username);
       setUser(userLogin[0]);
     });
+=======
+        socket.on("find",(player)=>{
+            console.log(player,'<=data players');
+            setPlayers(player) 
+            console.log(localStorage.username,'<- localstorage', player);
+            let userLogin = player.filter(el=>el.user===localStorage.username)
+            setUser(
+                userLogin[0]
+            )
+        })
+        
+>>>>>>> d5c11b3 (feat: ngedit home)
 
     socket.on('playing', (e) => {
       // <<< 5 diterima cick barunya
@@ -140,6 +162,7 @@ export default function Home() {
     console.log(user, '<-data user');
   }, [user]);
 
+<<<<<<< HEAD
   useEffect(() => {
     console.log(click, '<=');
   }, [click]); // <<< ketriger step 1
@@ -155,6 +178,27 @@ export default function Home() {
       {image && <img src="/utta.jpg" alt="" style={{ position: 'absolute', top: '15%', left: '28%' }} />}
       <button onClick={handlerLogOut}>log out</button>
       <div className="main-div">
+=======
+    console.log(players,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+    useEffect(()=>{
+        console.log(user,'<-data user');
+    },[user])
+
+    useEffect(()=>{
+        console.log(click,'<=');
+
+    },[click]) // <<< ketriger step 1 
+
+    return(
+        <>
+        {/* audio */}
+        {
+            audio && <audio autoPlay><source src="bell.wav" type="audio/mpeg"/></audio>
+        }
+        <button className="logOut" onClick={handlerLogOut}>logOut</button>
+            <div className="main-div">
+>>>>>>> d5c11b3 (feat: ngedit home)
         <div>
         <div className="move-detection">
             <div className="left">{localStorage.username}</div>
@@ -171,6 +215,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+          
         
       </div>
     </>
