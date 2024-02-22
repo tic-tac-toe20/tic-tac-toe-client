@@ -160,7 +160,7 @@ export default function Home() {
         </audio>
       )}
       {image && <img src="/utta.jpg" alt="" style={{ position: 'absolute', top: '15%', left: '28%' }} />}
-      <button onClick={handlerLogOut}>log out</button>
+      <button className='logOut' onClick={handlerLogOut}>log out</button>
       <div className="main-div">
         <div>
         <div className="move-detection">
