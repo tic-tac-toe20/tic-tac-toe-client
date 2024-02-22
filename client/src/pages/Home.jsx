@@ -3,6 +3,8 @@ import '../App.css';
 import { useEffect, useState } from 'react';
 import socket from '../config/socket';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
+
 
 const renderForm = [
   ['a', 'b', 'c'],
@@ -11,7 +13,6 @@ const renderForm = [
 ];
 
 export default function Home() {
-  // let arr = ['a','b','c','d','e','f','g','h','i']
   const navigate = useNavigate();
   const [username, setUsername] = useState(localStorage.username);
   const [audio, setAudio] = useState(false); // unt audio
@@ -29,9 +30,8 @@ export default function Home() {
     h: 'h',
     i: 'i',
   });
-
-  // let b1,b2,b3,b4,b5,b6,b7,b8,b9;
-
+  
+  
   if (
     (click.a == click.b && click.b == click.c) ||
     (click.d == click.e && click.e == click.f) ||
@@ -47,25 +47,28 @@ export default function Home() {
     socket.on('gameOver', (e) => {
       if (e) {
         console.log(e, '<--- ini harusnya user yg won');
-        localStorage.username === e
-          ? setTimeout(() => {
-              // alert(`${e} WON !!!`)
-              imgPopup();
-              setTimeout(() => {
-                localStorage.clear();
-                navigate('/login');
-              }, 2000);
-            }, 2000)
-          : setTimeout(() => {
-              // alert(`${localStorage.username} LOSE !!!`)
-              setTimeout(() => {
-                localStorage.clear();
-                navigate('/login');
-              }, 2000);
-            }, 1000);
+        if(localStorage.username === e){
+            console.log(localStorage.username, '<-username', e,'<-yg menang');
+            Swal.fire("You win!")
+        } else if (localStorage.username !== e) {
+            console.log(localStorage.username, '<-username', e,'<-yg menang');
+            Swal.fire("you lose!")
+        } 
+          
+        // setTimeout(()=>{
+        //     localStorage.clear()
+        //     navigate('/login')
+        // },900)
       }
     });
-  }
+  } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
+        console.log('permainan draw!!!');
+        Swal.fire("draw!!!");
+        setTimeout(()=>{
+            localStorage.clear()
+            navigate('/login')
+        },900)
+    }
 
   function handlerLogOut() {
     localStorage.removeItem('username');
@@ -105,6 +108,7 @@ export default function Home() {
       console.log('bukan giliranmu!!!');
     }
   }
+
 
   useEffect(() => {
     socket.auth = {
@@ -156,12 +160,12 @@ export default function Home() {
         </audio>
       )}
       {image && <img src="/utta.jpg" alt="" style={{ position: 'absolute', top: '15%', left: '28%' }} />}
-      <button onClick={handlerLogOut}>log out</button>
+      <button className='logOut' onClick={handlerLogOut}>log out</button>
       <div className="main-div">
         <div>
-          <div className="move-detection">
-            <div className="left">Kamu</div>
-            <div className="right">Lawan</div>
+        <div className="move-detection">
+            <div className="left">{localStorage.username}</div>
+            <div className="right">jodoh 💕</div>
           </div>
           <div>
             <h1 className="tittle-head transparant-div">Tic X Tac O Toe</h1>
@@ -174,6 +178,8 @@ export default function Home() {
             </div>
           </div>
         </div>
+          
+        
       </div>
     </>
   );
