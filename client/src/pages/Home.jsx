@@ -98,12 +98,17 @@ export default function Home() {
 
   function handlerClick(key) {
     if (username === localStorage.username) {
+        console.log(localStorage.username,'<-username ', username);
+        console.log(players, '<- semua players');
       handlerAudio();
+    //   console.log({ ...click, [key]: user.symbol },'<-click');
       socket.emit('playing', { ...click, [key]: user.symbol }); // <<< 2 ngirim
       let userLogin = players.filter((el) => el.user !== localStorage.username);
+      console.log(userLogin[0],'<-==--=');
       socket.emit('username', userLogin[0].user);
     } else {
-      handlerAudio();
+        handlerAudio();
+        Swal.fire("bukan giliranmu!!!");
       console.log('bukan giliranmu!!!');
     }
   }
