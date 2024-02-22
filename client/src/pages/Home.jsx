@@ -11,7 +11,6 @@ const renderForm = [
 ];
 
 export default function Home() {
-  // let arr = ['a','b','c','d','e','f','g','h','i']
   const navigate = useNavigate();
   const [username, setUsername] = useState(localStorage.username);
   const [audio, setAudio] = useState(false); // unt audio
@@ -29,34 +28,41 @@ export default function Home() {
     h: 'h',
     i: 'i',
   });
+  
+  if (
+    (click.a == click.b && click.b == click.c) ||
+    (click.d == click.e && click.e == click.f) ||
+    (click.g == click.h && click.h == click.i) ||
+    (click.a == click.d && click.d == click.g) ||
+    (click.b == click.e && click.e == click.h) ||
+    (click.c == click.f && click.f == click.i) ||
+    (click.a == click.e && click.e == click.i) ||
+    (click.c == click.e && click.e == click.g)
+  ) {
+    socket.emit('gameOver', localStorage.username);
 
-  // let b1,b2,b3,b4,b5,b6,b7,b8,b9;
-
-
-    if ((click.a == click.b && click.b == click.c) || (click.d == click.e && click.e == click.f) || (click.g == click.h && click.h == click.i) || (click.a == click.d && click.d == click.g) || (click.b == click.e && click.e == click.h) || (click.c == click.f && click.f == click.i) || (click.a == click.e && click.e == click.i) || (click.c == click.e && click.e == click.g)) {
-        socket.emit('gameOver', localStorage.username);
-        
-        socket.on('gameOver',(e)=>{
-            if(e){
-                console.log(e,'<--- ini harusnya user yg won');
-                localStorage.username===e ? 
-                setTimeout(() => {
-                    // alert(`${e} WON !!!`) 
-                    setTimeout(() => {
-                      localStorage.clear()
-                      navigate('/login')
-                    }, 2000);
-                  }, 100) : 
-                  setTimeout(() => {
-                    // alert(`${localStorage.username} LOSE !!!`)
-                    setTimeout(() => {
-                      localStorage.clear()
-                      navigate('/login')
-                    }, 2000);
-                  }, 100)
-            }
-        })
-    } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
+    socket.on('gameOver', (e) => {
+      if (e) {
+        console.log(e, '<--- ini harusnya user yg won');
+        localStorage.username === e
+          ? setTimeout(() => {
+              // alert(`${e} WON !!!`)
+              imgPopup();
+              setTimeout(() => {
+                localStorage.clear();
+                navigate('/login');
+              }, 2000);
+            }, 2000)
+          : setTimeout(() => {
+              // alert(`${localStorage.username} LOSE !!!`)
+              setTimeout(() => {
+                localStorage.clear();
+                navigate('/login');
+              }, 2000);
+            }, 1000);
+      }
+    });
+  } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
         console.log('permainan draw!!!');
         setTimeout(()=>{
             localStorage.clear()
@@ -103,23 +109,14 @@ export default function Home() {
     }
   }
 
-<<<<<<< HEAD
+
   useEffect(() => {
     socket.auth = {
       username: localStorage.username,
     };
-=======
-
-
-    useEffect(()=>{
-        socket.auth = {
-            username: localStorage.username
-        }
->>>>>>> d5c11b3 (feat: ngedit home)
 
     socket.connect();
 
-<<<<<<< HEAD
     socket.on('find', (player) => {
       console.log(player, '<=data players');
       setPlayers(player);
@@ -127,18 +124,6 @@ export default function Home() {
       let userLogin = player.filter((el) => el.user === localStorage.username);
       setUser(userLogin[0]);
     });
-=======
-        socket.on("find",(player)=>{
-            console.log(player,'<=data players');
-            setPlayers(player) 
-            console.log(localStorage.username,'<- localstorage', player);
-            let userLogin = player.filter(el=>el.user===localStorage.username)
-            setUser(
-                userLogin[0]
-            )
-        })
-        
->>>>>>> d5c11b3 (feat: ngedit home)
 
     socket.on('playing', (e) => {
       // <<< 5 diterima cick barunya
@@ -162,7 +147,6 @@ export default function Home() {
     console.log(user, '<-data user');
   }, [user]);
 
-<<<<<<< HEAD
   useEffect(() => {
     console.log(click, '<=');
   }, [click]); // <<< ketriger step 1
@@ -178,27 +162,6 @@ export default function Home() {
       {image && <img src="/utta.jpg" alt="" style={{ position: 'absolute', top: '15%', left: '28%' }} />}
       <button onClick={handlerLogOut}>log out</button>
       <div className="main-div">
-=======
-    console.log(players,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
-    useEffect(()=>{
-        console.log(user,'<-data user');
-    },[user])
-
-    useEffect(()=>{
-        console.log(click,'<=');
-
-    },[click]) // <<< ketriger step 1 
-
-    return(
-        <>
-        {/* audio */}
-        {
-            audio && <audio autoPlay><source src="bell.wav" type="audio/mpeg"/></audio>
-        }
-        <button className="logOut" onClick={handlerLogOut}>logOut</button>
-            <div className="main-div">
->>>>>>> d5c11b3 (feat: ngedit home)
         <div>
         <div className="move-detection">
             <div className="left">{localStorage.username}</div>
