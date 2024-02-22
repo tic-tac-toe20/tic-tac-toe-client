@@ -3,6 +3,8 @@ import '../App.css';
 import { useEffect, useState } from 'react';
 import socket from '../config/socket';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
+
 
 const renderForm = [
   ['a', 'b', 'c'],
@@ -29,6 +31,7 @@ export default function Home() {
     i: 'i',
   });
   
+  
   if (
     (click.a == click.b && click.b == click.c) ||
     (click.d == click.e && click.e == click.f) ||
@@ -44,26 +47,23 @@ export default function Home() {
     socket.on('gameOver', (e) => {
       if (e) {
         console.log(e, '<--- ini harusnya user yg won');
-        localStorage.username === e
-          ? setTimeout(() => {
-              // alert(`${e} WON !!!`)
-              imgPopup();
-              setTimeout(() => {
-                localStorage.clear();
-                navigate('/login');
-              }, 2000);
-            }, 2000)
-          : setTimeout(() => {
-              // alert(`${localStorage.username} LOSE !!!`)
-              setTimeout(() => {
-                localStorage.clear();
-                navigate('/login');
-              }, 2000);
-            }, 1000);
+        if(localStorage.username === e){
+            console.log(localStorage.username, '<-username', e,'<-yg menang');
+            Swal.fire("You win!")
+        } else if (localStorage.username !== e) {
+            console.log(localStorage.username, '<-username', e,'<-yg menang');
+            Swal.fire("you lose!")
+        } 
+          
+        // setTimeout(()=>{
+        //     localStorage.clear()
+        //     navigate('/login')
+        // },900)
       }
     });
   } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
         console.log('permainan draw!!!');
+        Swal.fire("draw!!!");
         setTimeout(()=>{
             localStorage.clear()
             navigate('/login')
