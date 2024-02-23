@@ -30,7 +30,27 @@ export default function Home() {
     i: 'i',
   });
   
-function winCondition(){
+  // function winCondition(){
+  //   if (
+  //     (click.a == click.b && click.b == click.c) ||
+  //     (click.d == click.e && click.e == click.f) ||
+  //     (click.g == click.h && click.h == click.i) ||
+  //     (click.a == click.d && click.d == click.g) ||
+  //     (click.b == click.e && click.e == click.h) ||
+  //     (click.c == click.f && click.f == click.i) ||
+  //     (click.a == click.e && click.e == click.i) ||
+  //     (click.c == click.e && click.e == click.g)
+  //     ) {
+  //         socket.emit('gameOver', localStorage.username);
+  //     } else if (click.a!=='a' && click.b!=='b' && click.c!=='c' && click.d!=='d' && click.e!=='e' && click.f!=='f' && click.g!=='g' && click.h!=='h' && click.i!=='i') {
+  //         Swal.fire("draw!!!");
+  //         setTimeout(()=>{
+  //             localStorage.clear()
+  //             navigate('/login')
+  //         },900)
+  //     }
+  // }
+
   if (
     (click.a == click.b && click.b == click.c) ||
     (click.d == click.e && click.e == click.f) ||
@@ -49,7 +69,6 @@ function winCondition(){
             navigate('/login')
         },900)
     }
-}
 
   function handlerLogOut() {
     localStorage.removeItem('username');
@@ -80,9 +99,9 @@ function winCondition(){
     }
   }
 
-  useEffect(()=>{
-    winCondition()
-  },[click])
+  // useEffect(()=>{
+  //   winCondition()
+  // },[click])
 
   useEffect(() => {
     socket.auth = {
