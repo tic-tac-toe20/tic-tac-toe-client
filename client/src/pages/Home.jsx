@@ -30,7 +30,7 @@ export default function Home() {
     i: 'i',
   });
   
-useEffect(()=>{
+function winCondition(){
   if (
     (click.a == click.b && click.b == click.c) ||
     (click.d == click.e && click.e == click.f) ||
@@ -49,8 +49,7 @@ useEffect(()=>{
             navigate('/login')
         },900)
     }
-},[click])
-
+}
 
   function handlerLogOut() {
     localStorage.removeItem('username');
@@ -72,7 +71,7 @@ useEffect(()=>{
     if (username === localStorage.username) {
       handlerAudio();
       socket.emit('playing', { ...click, [key]: user.symbol }); // <<< 2 ngirim
-
+      
       let userLogin = players.filter((el) => el.user !== localStorage.username);
       socket.emit('username', userLogin[0].user);
     } else {
@@ -81,6 +80,9 @@ useEffect(()=>{
     }
   }
 
+  useEffect(()=>{
+    winCondition()
+  },[click])
 
   useEffect(() => {
     socket.auth = {
@@ -99,7 +101,7 @@ useEffect(()=>{
     socket.on('playing', (e) => {
       // <<< 5 diterima cick barunya
       setClick(e); // <<< 6 di set
-      
+     
     });
 
     socket.on('username', (e) => {
@@ -107,6 +109,7 @@ useEffect(()=>{
     });
 
     socket.on('gameOver', (e) => {
+      console.log(localStorage.username,'-----',e, "gameoberrrr");
     
         if(localStorage.username === e){
             Swal.fire("You win!")
