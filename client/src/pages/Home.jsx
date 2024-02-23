@@ -30,6 +30,7 @@ export default function Home() {
     i: 'i',
   });
   
+useEffect(()=>{
   if (
     (click.a == click.b && click.b == click.c) ||
     (click.d == click.e && click.e == click.f) ||
@@ -48,6 +49,7 @@ export default function Home() {
             navigate('/login')
         },900)
     }
+},[click])
 
 
   function handlerLogOut() {
